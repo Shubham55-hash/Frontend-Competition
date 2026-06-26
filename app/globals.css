@@ -1,26 +1,444 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --arctic-powder: #F1F6F4;
+  --mystic-mint: #D9E8E2;
+  --forsythia: #FFC801;
+  --deep-saffron: #FF9932;
+  --nocturnal-expedition: #114C5A;
+  --oceanic-noir: #172B36;
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Timing */
+  --t-hover: 175ms;
+  --t-layout: 350ms;
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--oceanic-noir);
+  color: var(--arctic-powder);
+  overflow-x: hidden;
+}
+
+/* ─── Entry animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 15px) scale(0.97); }
+}
+
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-40px, 25px) scale(1.03); }
+  66%       { transform: translate(20px, -30px) scale(0.98); }
+}
+
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(15px, 35px) scale(1.04); }
+  66%       { transform: translate(-25px, -15px) scale(0.96); }
+}
+
+@keyframes accordion-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Utility animation classes ─── */
+.animate-fade-up {
+  animation: fadeUp 0.5s var(--ease-out) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s var(--ease-out) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s var(--ease-out) both;
+}
+
+/* ─── Stagger delay classes — hero entry sequence ─── */
+.anim-d0  { animation: fadeUp 0.4s ease-out both; }
+.anim-d1  { animation: fadeUp 0.4s ease-out 80ms  both; }
+.anim-d2  { animation: fadeUp 0.4s ease-out 160ms both; }
+.anim-d3  { animation: fadeUp 0.4s ease-out 240ms both; }
+.anim-d4  { animation: fadeUp 0.4s ease-out 320ms both; }
+/* Tight 500ms total budget variant: 320ms delay + 180ms duration = 500ms */
+.anim-fast { animation: fadeUp 0.18s ease-out both; }
+
+
+/* ─── Focus visible ─── */
+:focus-visible {
+  outline: 2px solid var(--forsythia);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--oceanic-noir); }
+::-webkit-scrollbar-thumb {
+  background: rgba(217,232,226,0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(217,232,226,0.3); }
+
+/* ─── Selection ─── */
+::selection {
+  background: rgba(255,200,1,0.2);
+  color: var(--arctic-powder);
+}
+
+/* ═══════════════════════════════════════════
+   NAV COMPONENT CLASSES
+═══════════════════════════════════════════ */
+
+.nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(23,43,54,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(217,232,226,0.08);
+}
+
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--arctic-powder);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  transition: opacity var(--t-hover) var(--ease-out);
+}
+
+.nav-logo:hover { opacity: 0.85; }
+
+.nav-logo-badge {
+  color: var(--forsythia);
+  background: rgba(255,200,1,0.12);
+  border: 1px solid rgba(255,200,1,0.25);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 4px;
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--mystic-mint);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--t-hover) var(--ease-out);
+}
+
+.nav-link:hover { color: var(--arctic-powder); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--forsythia);
+  color: var(--oceanic-noir);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.nav-cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════════
+   HERO CTA CLASSES
+═══════════════════════════════════════════ */
+
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--forsythia);
+  color: var(--oceanic-noir);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.hero-cta-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--arctic-powder);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid rgba(217,232,226,0.25);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out), background var(--t-hover) var(--ease-out);
+}
+
+.hero-cta-secondary:hover {
+  border-color: var(--forsythia);
+  background: rgba(255,200,1,0.05);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   PRICING CARD CLASSES
+═══════════════════════════════════════════ */
+
+.pricing-card {
+  position: relative;
+  background: rgba(17,76,90,0.2);
+  border: 1px solid rgba(217,232,226,0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: transform var(--t-hover) var(--ease-out), box-shadow var(--t-hover) var(--ease-out), border-color var(--t-hover) var(--ease-out);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217,232,226,0.2);
+}
+
+.pricing-card-highlighted {
+  background: rgba(255,200,1,0.04);
+  border-color: var(--forsythia);
+  box-shadow: 0 0 40px rgba(255,200,1,0.12);
+}
+
+.pricing-card-highlighted:hover {
+  box-shadow: 0 0 60px rgba(255,200,1,0.2);
+  border-color: var(--forsythia);
+}
+
+.pricing-cta-primary {
+  display: block;
+  text-align: center;
+  padding: 0.875rem 1.5rem;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--forsythia);
+  color: var(--oceanic-noir);
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.pricing-cta-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.pricing-cta-outline {
+  display: block;
+  text-align: center;
+  padding: 0.875rem 1.5rem;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: transparent;
+  color: var(--arctic-powder);
+  border: 1px solid rgba(217,232,226,0.2);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.pricing-cta-outline:hover {
+  border-color: var(--forsythia);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIAL CARD CLASSES
+═══════════════════════════════════════════ */
+
+.testimonial-card {
+  background: rgba(17,76,90,0.2);
+  border: 1px solid rgba(217,232,226,0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.testimonial-card:hover {
+  border-color: rgba(217,232,226,0.2);
+  transform: translateY(-3px);
+}
+
+/* ═══════════════════════════════════════════
+   CTA SECTION CLASSES
+═══════════════════════════════════════════ */
+
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.25rem;
+  background: var(--forsythia);
+  color: var(--oceanic-noir);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.cta-btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2.25rem;
+  background: transparent;
+  color: var(--arctic-powder);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid rgba(217,232,226,0.25);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+}
+
+.cta-btn-secondary:hover {
+  border-color: var(--forsythia);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER CLASSES
+═══════════════════════════════════════════ */
+
+.footer-col-heading {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--arctic-powder);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.footer-link {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--mystic-mint);
+  text-decoration: none;
+  transition: color var(--t-hover) var(--ease-out);
+}
+
+.footer-link:hover { color: var(--arctic-powder); }
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(17,76,90,0.4);
+  border: 1px solid rgba(217,232,226,0.1);
+  color: var(--mystic-mint);
+  transition: color var(--t-hover) var(--ease-out), border-color var(--t-hover) var(--ease-out);
+}
+
+.footer-social-link:hover {
+  color: var(--forsythia);
+  border-color: rgba(255,200,1,0.3);
 }
