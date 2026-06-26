@@ -1,4 +1,12 @@
-import type { Plan, Currency, BillingCycle, PricingMatrixEntry } from '@/types'
+export type Plan = 'starter' | 'pro' | 'enterprise'
+export type BillingCycle = 'monthly' | 'yearly'
+export type Currency = 'INR' | 'USD' | 'EUR'
+
+export interface PricingMatrixEntry {
+  baseMonthlyUSD: number
+  regionalMultiplier: Record<Currency, number>
+  annualDiscountMultiplier: number
+}
 
 export const PRICING_MATRIX: Record<Plan, PricingMatrixEntry> = {
   starter: {

@@ -1,5 +1,5 @@
 import HeroBackground from './HeroBackground'
-
+import HeroVisualization from './HeroVisualization'
 const METRICS = [
   { value: '10M+', label: 'Events/sec processed' },
   { value: '99.9%', label: 'Uptime SLA' },
@@ -32,8 +32,13 @@ export default function Hero() {
           margin: '0 auto',
           padding: '6rem 1.5rem 4rem',
           width: '100%',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '4rem',
+          alignItems: 'center',
         }}
       >
+        <div>
         {/* Eyebrow badge */}
         <div
           className="animate-fade-up"
@@ -255,6 +260,13 @@ export default function Hero() {
               </span>
             ))}
           </div>
+        </div>
+
+        </div>
+        
+        {/* Right side visualization */}
+        <div className="hero-viz-container">
+          <HeroVisualization />
         </div>
       </div>
     </section>

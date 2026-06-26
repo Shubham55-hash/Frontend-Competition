@@ -1,6 +1,6 @@
 'use client'
 import { pricingStore, usePricingStore } from '@/hooks/usePricingStore'
-import type { BillingCycle } from '@/types'
+import type { BillingCycle } from '@/lib/pricingMatrix'
 
 export default function BillingToggle() {
   // Read billing directly from the store — no local useState split-brain

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { pricingStore, usePricingStore } from '@/hooks/usePricingStore'
 import { ChevronDown } from '@/components/icons'
-import type { Currency } from '@/types'
+import type { Currency } from '@/lib/pricingMatrix'
 
 const CURRENCIES: { code: Currency; label: string; symbol: string }[] = [
   { code: 'USD', label: 'USD — US Dollar', symbol: '$' },

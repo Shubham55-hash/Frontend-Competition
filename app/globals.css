@@ -16,6 +16,7 @@
   --t-layout: 350ms;
   --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 * {
@@ -34,6 +35,16 @@ body {
   background-color: var(--oceanic-noir);
   color: var(--arctic-powder);
   overflow-x: hidden;
+}
+
+/* ─── Hero Visualization ─── */
+.hero-viz-container {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hero-viz-container {
+    display: block;
+  }
 }
 
 /* ─── Entry animations ─── */
@@ -235,12 +246,13 @@ body {
   font-size: 0.95rem;
   border-radius: 10px;
   text-decoration: none;
-  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring), box-shadow var(--t-hover) var(--ease-out);
 }
 
 .hero-cta-primary:hover {
   filter: brightness(1.08);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(255,200,1,0.25);
 }
 
 .hero-cta-secondary {
@@ -256,13 +268,13 @@ body {
   border-radius: 10px;
   text-decoration: none;
   border: 1px solid rgba(217,232,226,0.25);
-  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out), background var(--t-hover) var(--ease-out);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring), background var(--t-hover) var(--ease-out);
 }
 
 .hero-cta-secondary:hover {
   border-color: var(--forsythia);
   background: rgba(255,200,1,0.05);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* ═══════════════════════════════════════════
@@ -308,12 +320,13 @@ body {
   text-decoration: none;
   background: var(--forsythia);
   color: var(--oceanic-noir);
-  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring), box-shadow var(--t-hover) var(--ease-out);
 }
 
 .pricing-cta-primary:hover {
   filter: brightness(1.08);
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(255,200,1,0.25);
 }
 
 .pricing-cta-outline {
@@ -328,12 +341,12 @@ body {
   background: transparent;
   color: var(--arctic-powder);
   border: 1px solid rgba(217,232,226,0.2);
-  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring);
 }
 
 .pricing-cta-outline:hover {
   border-color: var(--forsythia);
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* ═══════════════════════════════════════════
@@ -372,12 +385,13 @@ body {
   font-size: 1rem;
   border-radius: 10px;
   text-decoration: none;
-  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+  transition: filter var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring), box-shadow var(--t-hover) var(--ease-out);
 }
 
 .cta-btn-primary:hover {
   filter: brightness(1.08);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(255,200,1,0.25);
 }
 
 .cta-btn-secondary {
@@ -393,12 +407,12 @@ body {
   border-radius: 10px;
   text-decoration: none;
   border: 1px solid rgba(217,232,226,0.25);
-  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-out);
+  transition: border-color var(--t-hover) var(--ease-out), transform var(--t-hover) var(--ease-spring);
 }
 
 .cta-btn-secondary:hover {
   border-color: var(--forsythia);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* ═══════════════════════════════════════════

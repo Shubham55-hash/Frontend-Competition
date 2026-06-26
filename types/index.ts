@@ -1,13 +1,3 @@
-export type Plan = 'starter' | 'pro' | 'enterprise'
-export type BillingCycle = 'monthly' | 'yearly'
-export type Currency = 'INR' | 'USD' | 'EUR'
-
-export interface PricingMatrixEntry {
-  baseMonthlyUSD: number
-  regionalMultiplier: Record<Currency, number>
-  annualDiscountMultiplier: number
-}
-
 export interface Feature {
   id: number
   title: string

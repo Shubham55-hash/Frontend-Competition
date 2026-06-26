@@ -2,7 +2,7 @@
 import BillingToggle from './BillingToggle'
 import CurrencySelector from './CurrencySelector'
 import PricingCard from './PricingCard'
-import type { Plan } from '@/types'
+import type { Plan } from '@/lib/pricingMatrix'
 
 const PLANS: Plan[] = ['starter', 'pro', 'enterprise']
 

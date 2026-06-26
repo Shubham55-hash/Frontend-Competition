@@ -1,7 +1,7 @@
 import PriceDisplay from './PriceDisplay'
 import { ChevronUpSolid } from '@/components/icons'
 import { PLAN_DETAILS } from '@/constants/pricing'
-import type { Plan } from '@/types'
+import type { Plan } from '@/lib/pricingMatrix'
 
 interface PricingCardProps {
   plan: Plan

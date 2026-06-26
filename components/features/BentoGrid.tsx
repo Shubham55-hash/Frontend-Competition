@@ -43,7 +43,7 @@ export default function BentoGrid() {
               borderRadius: '16px',
               padding: '1.5rem',
               cursor: 'pointer',
-              transition: `border-color var(--t-layout) var(--ease-in-out), background var(--t-layout) var(--ease-in-out), transform var(--t-hover) var(--ease-out)`,
+              transition: `border-color var(--t-layout) var(--ease-in-out), background var(--t-layout) var(--ease-in-out), transform var(--t-hover) var(--ease-spring)`,
               display: 'flex',
               flexDirection: 'column',
               gap: '0.875rem',

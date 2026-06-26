@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react'
 import { usePricingStore } from '@/hooks/usePricingStore'
 import { computePrice } from '@/lib/pricingMatrix'
-import type { Plan } from '@/types'
+import type { Plan } from '@/lib/pricingMatrix'
 
 export default function PriceDisplay({ plan }: { plan: Plan }) {
   const { currency, billing } = usePricingStore()

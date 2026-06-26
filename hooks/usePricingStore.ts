@@ -1,6 +1,6 @@
 'use client'
 import { useSyncExternalStore } from 'react'
-import type { BillingCycle, Currency } from '@/types'
+import type { BillingCycle, Currency } from '@/lib/pricingMatrix'
 
 interface PricingState {
   billing: BillingCycle

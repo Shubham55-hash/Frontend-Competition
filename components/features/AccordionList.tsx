@@ -116,7 +116,7 @@ export default function AccordionList() {
                   height: '18px',
                   color: 'var(--mystic-mint)',
                   flexShrink: 0,
-                  transition: `transform var(--t-hover) var(--ease-out)`,
+                  transition: `transform var(--t-hover) var(--ease-spring)`,
                   transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                 }}
               />
